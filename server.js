@@ -1,12 +1,12 @@
 const express = require('express');
 const app = express();
-const static = express.static('static'); 
+const dist = express.static('dist'); 
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
 
 const port = process.env.PORT || 3000;
 
-app.use(static);
+app.use(dist);
 
 io.on('connection', (socket) => {
   console.log('a user connected');
