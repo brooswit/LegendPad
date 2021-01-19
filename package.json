@@ -1,0 +1,30 @@
+{
+  "name": "legendpad",
+  "version": "0.0.0",
+  "description": "This software was inspired by the \"Twitch plays X\" concept. Instead of parsing Twitch chat, I wanted to agregate actual controller inputs from all viewers, and send the average of all analog inputs and set the state of all non-analong buttons to whatever the majority of clients are pressing",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "parcel watch ./webapp/index.html -d ./dist/",
+    "build": "parcel build ./webapp/index.html -d ./dist/",
+    "run": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brooswit/LegendPad.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/brooswit/LegendPad/issues"
+  },
+  "homepage": "https://github.com/brooswit/LegendPad#readme",
+  "devDependencies": {
+    "parcel-bundler": "^1.12.4"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "socket.io": "^3.1.0",
+    "socket.io-client": "^3.1.0"
+  }
+}
