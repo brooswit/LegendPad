@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "parcel watch ./webapp/index.html -d ./dist/",
     "build": "parcel build ./webapp/index.html -d ./dist/",
-    "start": "node index.js"
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
