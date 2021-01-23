@@ -10,19 +10,21 @@ setTimeout(()=>{
     let state = {};
     state.controllers = {};
 
-    for(let gamepad of gameController.gamepads) {
-        state.controllers[gamepad.id] = {};
+    if (gameController.gamepads) {
+        for(let gamepad of gameController.gamepads) {
+            state.controllers[gamepad.id] = {};
 
-        state.controllers[gamepad.id].buttons = {};
-        for (let buttonId = 0; buttonId < gamepad.buttons; buttonId++) {
-            state.controllers[gamepad.id].buttons[buttonId] = gamepad.buttons[buttonId].pressed;
-        }
+            state.controllers[gamepad.id].buttons = {};
+            for (let buttonId = 0; buttonId < gamepad.buttons; buttonId++) {
+                state.controllers[gamepad.id].buttons[buttonId] = gamepad.buttons[buttonId].pressed;
+            }
 
-        state.controllers[gamepad.id].axes = {};
-        if (gamepad.axes) {
-            const modifier = gamepad.axes.length % 2; // Firefox hack: detects one additional axe
-            for (let x = 0; x < this.axes * 2; x++) {
-              state.controllers[gamepad.id].axes[x] = gamepad.axes[x + modifier].toFixed(4);
+            state.controllers[gamepad.id].axes = {};
+            if (gamepad.axes) {
+                const modifier = gamepad.axes.length % 2; // Firefox hack: detects one additional axe
+                for (let x = 0; x < this.axes * 2; x++) {
+                state.controllers[gamepad.id].axes[x] = gamepad.axes[x + modifier].toFixed(4);
+                }
             }
         }
     }
