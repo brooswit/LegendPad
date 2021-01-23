@@ -19,7 +19,7 @@ function combineStates() {
     for(stateKey in states) {
         for(keyIndex in states[stateKey].keys) {
             combinedState.keys[keyIndex] = combinedState.keys[keyIndex] || [];
-            combinedState.keys[keyIndex].push(states[stateKey].keys[keyIndex]);
+            combinedState.keys[keyIndex].push(states[stateKey].keys[keyIndex]?1:-1);
         }
         
         for(controllerIndex in states[stateKey].controllers) {
@@ -28,7 +28,7 @@ function combineStates() {
             combinedState.controllers[controllerIndex].axes = combinedState.controllers[controllerIndex].axes || {};
             for(buttonIndex in states[stateKey].controllers[controllerIndex].buttons) {
                 combinedState.controllers[controllerIndex].buttons[buttonIndex] = combinedState.controllers[controllerIndex].buttons[buttonIndex] || [];
-                combinedState.controllers[controllerIndex].buttons[buttonIndex].push(states[stateKey].controllers[controllerIndex].buttons[buttonIndex]);
+                combinedState.controllers[controllerIndex].buttons[buttonIndex].push(states[stateKey].controllers[controllerIndex].buttons[buttonIndex]?1:-1);
             }
             for(axeIndex in states[stateKey].controllers[controllerIndex].axes) {
                 combinedState.controllers[controllerIndex].axes[axeIndex] = combinedState.controllers[controllerIndex].axes[axeIndex] || [];
@@ -52,14 +52,14 @@ function averageStates() {
     averageState.keys = {};
     averageState.controllers = {};
     for(keyIndex in combinedState.keys) {
-        averageState.keys[keyIndex] = arrayAverage(combinedState.keys[keyIndex]);
+        averageState.keys[keyIndex] = arrayAverage(combinedState.keys[keyIndex])>0;
     }
     
     for(controllerIndex in combinedState.controllers) {
         averageState.controllers[controllerIndex] = {};
         averageState.controllers[controllerIndex].buttons = {};
         for(buttonIndex in combinedState.controllers[controllerIndex].buttons) {
-            averageState.controllers[controllerIndex].buttons[buttonIndex] = arrayAverage(combinedState.controllers[controllerIndex].buttons[buttonIndex])
+            averageState.controllers[controllerIndex].buttons[buttonIndex] = arrayAverage(combinedState.controllers[controllerIndex].buttons[buttonIndex]>0)
         }
         averageState.controllers[controllerIndex].axes = {};
         for(axeIndex in combinedState.controllers[controllerIndex].axes) {
