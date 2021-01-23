@@ -10,6 +10,11 @@ app.use(dist);
 
 io.on('connection', (socket) => {
     console.log('a user connected');
+    console.log(socket);
+    socket.on('inputs', (inputs) => {
+        console.log('received inputs');
+        console.log(inputs);
+    });
     socket.on('disconnect', () => {
         console.log('user disconnected');
     });
