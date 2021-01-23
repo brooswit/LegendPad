@@ -51,19 +51,19 @@ function averageStates() {
     averageState = {};
     averageState.keys = {};
     averageState.controllers = {};
-    for(keyIndex in combinedStates.keys) {
-        averageState.keys[keyIndex] = arrayAverage(combinedStates.keys[keyIndex]);
+    for(keyIndex in combinedState.keys) {
+        averageState.keys[keyIndex] = arrayAverage(combinedState.keys[keyIndex]);
     }
     
-    for(controllerIndex in combinedStates.controllers) {
+    for(controllerIndex in combinedState.controllers) {
         averageState.controllers[controllerIndex] = {};
         averageState.controllers[controllerIndex].buttons = {};
-        for(buttonIndex in combinedStates.controllers[controllerIndex].buttons) {
-            averageState.controllers[controllerIndex].buttons[buttonIndex] = arrayAverage(combinedStates.controllers[controllerIndex].buttons[buttonIndex])
+        for(buttonIndex in combinedState.controllers[controllerIndex].buttons) {
+            averageState.controllers[controllerIndex].buttons[buttonIndex] = arrayAverage(combinedState.controllers[controllerIndex].buttons[buttonIndex])
         }
         averageState.controllers[controllerIndex].axes = {};
-        for(axeIndex in combinedStates.controllers[controllerIndex].axes) {
-            averageState.controllers[controllerIndex].axes[axeIndex] = arrayAverage(combinedStates.controllers[controllerIndex].axes[axeIndex])
+        for(axeIndex in combinedState.controllers[controllerIndex].axes) {
+            averageState.controllers[controllerIndex].axes[axeIndex] = arrayAverage(combinedState.controllers[controllerIndex].axes[axeIndex])
         }
     }
 }
