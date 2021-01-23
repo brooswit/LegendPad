@@ -8,13 +8,13 @@ var socket = io();
 var keys = {};
 window.addEventListener("keydown",
     function(e){
-        keys[e.keyCode] = true;
+        keys[e.key] = true;
     },
 false);
 
 window.addEventListener('keyup',
     function(e){
-        keys[e.keyCode] = false;
+        keys[e.key] = false;
     },
 false);
 
