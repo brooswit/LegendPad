@@ -15,7 +15,7 @@ io.on('connection', (socket) => {
     socket.on('inputs', (inputs, callback) => {
         console.log('received inputs');
         console.log(inputs);
-        callback(inputs);
+        callback({inputs});
     });
     socket.on('disconnect', () => {
         console.log('user disconnected');
