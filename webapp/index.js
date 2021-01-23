@@ -18,7 +18,8 @@ window.addEventListener('keyup',
     },
 false);
 
-setTimeout(()=>{
+sync();
+function sync() {
     let state = {};
     state.keys = keys;
     state.controllers = {};
@@ -43,7 +44,8 @@ setTimeout(()=>{
     }
 
     console.log(state);
-}, 1000 / SAMPLE_RATE);
+    setTimeout(sync, 1000 / SAMPLE_RATE);
+}
 
 window.addEventListener("gamepadconnected", function(e) {
   console.log("Gamepad connected at index %d: %s. %d buttons, %d axes.",
