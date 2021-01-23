@@ -8,12 +8,14 @@ const port = process.env.PORT || 3000;
 
 app.use(dist);
 
+
 io.on('connection', (socket) => {
     console.log('a user connected');
     console.log(socket);
-    socket.on('inputs', (inputs) => {
+    socket.on('inputs', (inputs, callback) => {
         console.log('received inputs');
         console.log(inputs);
+        callback(inputs);
     });
     socket.on('disconnect', () => {
         console.log('user disconnected');
