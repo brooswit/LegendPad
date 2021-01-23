@@ -3,11 +3,24 @@ const SAMPLE_RATE = 20;
 const io = require('socket.io-client');
 const gameController = require('gamecontroller.js');
 
-
 var socket = io();
+
+var keys = [];
+window.addEventListener("keydown",
+    function(e){
+        keys[e.keyCode] = true;
+    },
+false);
+
+window.addEventListener('keyup',
+    function(e){
+        keys[e.keyCode] = false;
+    },
+false);
 
 setTimeout(()=>{
     let state = {};
+    state.keys = keys;
     state.controllers = {};
 
     if (gameController.gamepads) {
