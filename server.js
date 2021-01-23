@@ -17,22 +17,22 @@ function combineStates() {
     combinedState.keys = {};
     combinedState.controllers = {};
     for(stateKey in states) {
-        for(keyIndex in state[stateKey].keys) {
+        for(keyIndex in states[stateKey].keys) {
             combinedState.keys[keyIndex] = combinedState.keys[keyIndex] || [];
-            combinedState.keys[keyIndex].push(state[stateKey].keys[keyIndex]);
+            combinedState.keys[keyIndex].push(states[stateKey].keys[keyIndex]);
         }
         
-        for(controllerIndex in state[stateKey].controllers) {
+        for(controllerIndex in states[stateKey].controllers) {
             combinedState.controllers[controllerIndex] = combinedState.controllers[controllerIndex] || {};
             combinedState.controllers[controllerIndex].buttons = combinedState.controllers[controllerIndex].buttons || {};
             combinedState.controllers[controllerIndex].axes = combinedState.controllers[controllerIndex].axes || {};
-            for(buttonIndex in state[stateKey].controllers[controllerIndex].buttons) {
+            for(buttonIndex in states[stateKey].controllers[controllerIndex].buttons) {
                 combinedState.controllers[controllerIndex].buttons[buttonIndex] = combinedState.controllers[controllerIndex].buttons[buttonIndex] || [];
-                combinedState.controllers[controllerIndex].buttons[buttonIndex].push(state[stateKey].controllers[controllerIndex].buttons[buttonIndex]);
+                combinedState.controllers[controllerIndex].buttons[buttonIndex].push(states[stateKey].controllers[controllerIndex].buttons[buttonIndex]);
             }
-            for(axeIndex in state[stateKey].controllers[controllerIndex].axes) {
+            for(axeIndex in states[stateKey].controllers[controllerIndex].axes) {
                 combinedState.controllers[controllerIndex].axes[axeIndex] = combinedState.controllers[controllerIndex].axes[axeIndex] || [];
-                combinedState.controllers[controllerIndex].axes[axeIndex].push(state[stateKey].controllers[controllerIndex].axes[axeIndex]);
+                combinedState.controllers[controllerIndex].axes[axeIndex].push(states[stateKey].controllers[controllerIndex].axes[axeIndex]);
             }
         }
     }
