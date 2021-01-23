@@ -44,7 +44,8 @@ function sync() {
     }
 
     console.log(state);
-    setTimeout(sync, 1000 / SAMPLE_RATE);
+    io.emit('inputs', sync);
+    // setTimeout(sync, 1000 / SAMPLE_RATE);
 }
 
 window.addEventListener("gamepadconnected", function(e) {
