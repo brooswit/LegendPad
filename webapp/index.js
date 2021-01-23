@@ -44,7 +44,7 @@ function sync() {
     }
 
     console.log(state);
-    socket.emit('inputs', sync);
+    socket.emit('inputs', state, sync);
     // setTimeout(sync, 1000 / SAMPLE_RATE);
 }
 
