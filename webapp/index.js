@@ -5,7 +5,7 @@ const gameController = require('gamecontroller.js');
 
 var socket = io();
 
-var keys = [];
+var keys = {};
 window.addEventListener("keydown",
     function(e){
         keys[e.keyCode] = true;
