@@ -2,10 +2,7 @@ import socketio
 import copy
 import keyboard
 
-inputs = {
-    keys: {},
-    controllers: {}
-}
+inputs = {"keys": {}, "controllers": {}}
 
 sio = socketio.Client()
 
