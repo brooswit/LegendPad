@@ -1,6 +1,6 @@
 import socketio
 import copy
-import pyautogui
+import keyboard
 
 inputs = {
     keys: {},
@@ -34,9 +34,9 @@ def detectChange(key, handledKeys):
     previousValue = previousInputs.keys[key]
     if(previousValue != value):
         if(value == True):
-            pyautogui.keyDown(key)
+            keyboard.press(key)
         else:
-            pyautogui.keyUp(key)
+            keyboard.release(key)
 
 while true:
     previousInputs = copy.deepcopy(inputs)
