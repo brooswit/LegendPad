@@ -19,7 +19,7 @@ def my_message(data):
 def disconnect():
     print('disconnected from server')
 
-sio.connect('https://legend-pad.herokuapp.com/socket.io/', namespace='/')
+sio.connect('https://legend-pad.herokuapp.com/socket.io/', namespaces=['/'])
 
 def detectChange(key, handledKeys):
     if handledKeys[key]:
