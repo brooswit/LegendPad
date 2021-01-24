@@ -68,7 +68,7 @@ function averageStates() {
     }
 }
 
-io.on('connection', (socket) => {
+io.of('/inputs').on('connection', (socket) => {
     states[socket.id] = {};
     let prefix = `[user@${socket.id}]`;
     console.log(`${prefix} Connected`);
