@@ -35,7 +35,7 @@ def detectChange(key, handledKeys):
         else:
             keyboard.release(key)
 
-while true:
+while True:
     previousInputs = copy.deepcopy(inputs)
     inputs = sio.call('inputs', {})
     handledKeys = {}
