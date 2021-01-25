@@ -68,12 +68,13 @@ function averageStates() {
     }
 }
 
-io.of('/inputs').on('connection', (socket) => {
+io.on('connection', (socket) => {
     states[socket.id] = {};
     let prefix = `[user@${socket.id}]`;
     console.log(`${prefix} Connected`);
 
     socket.on('inputs', (inputs, callback) => {
+        console.log(`${prefix} Inputs`);
         states[socket.id] = inputs;
         combineStates();
         averageStates();
