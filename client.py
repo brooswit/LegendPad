@@ -36,6 +36,7 @@ def detectChange(key, handledKeys):
         else:
             keyboard.release(key)
 
+sio.wait()
 while True:
     previousInputs = copy.deepcopy(inputs)
     inputs = sio.call('inputs', {})
@@ -46,4 +47,3 @@ while True:
     for key in range(len(inputs.keys)):
         detectChange(key, handledKeys)
            
-sio.wait()
