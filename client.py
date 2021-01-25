@@ -6,22 +6,6 @@ inputs = {"keys": {}, "controllers": {}}
 
 sio = socketio.Client()
 
-@sio.event
-def connect():
-    print('connection established')
-
-@sio.event
-def my_message(data):
-    print('message received with ', data)
-    sio.emit('my response', {'response': 'my response'})
-
-@sio.event
-def disconnect():
-    print('disconnected from server')
-
-sio.connect('https://legend-pad.herokuapp.com/', namespaces=['/inputs'])
-print('my sid is', sio.sid)
-
 def detectChange(key, handledKeys):
     if handledKeys[key]:
         return
@@ -36,14 +20,26 @@ def detectChange(key, handledKeys):
         else:
             keyboard.release(key)
 
-sio.wait()
-while True:
-    previousInputs = copy.deepcopy(inputs)
-    inputs = sio.call('inputs', {})
-    handledKeys = {}
+@sio.event
+def connect():
+    print('connection established')
+    print('my sid is', sio.sid)
+    while True:
+        print('loop')
+        previousInputs = copy.deepcopy(inputs)
+        inputs = sio.call('inputs', {})
+        handledKeys = {}
 
-    for key in range(len(previousInputs.keys)):
-        detectChange(key, handledKeys)
-    for key in range(len(inputs.keys)):
-        detectChange(key, handledKeys)
+        for key in range(len(previousInputs.keys)):
+            detectChange(key, handledKeys)
+        for key in range(len(inputs.keys)):
+            detectChange(key, handledKeys)
+
+@sio.event
+def disconnect():
+    print('disconnected from server')
+
+sio.connect('https://legend-pad.herokuapp.com/', namespaces=['/inputs'])
+
+sio.wait()
            
