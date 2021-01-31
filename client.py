@@ -39,7 +39,7 @@ def connect():
 def disconnect():
     print('disconnected from server')
 
-sio.connect('https://legend-pad.herokuapp.com/')
+sio.connect('ws://legend-pad.herokuapp.com')
 
 sio.wait()
            
