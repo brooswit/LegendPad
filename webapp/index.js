@@ -1,33 +1,18 @@
-let untilDomReady = new Promise((resolve, reject) => {
-    document.addEventListener('DOMContentLoaded', (event) => {
-        resolve();
-    });
-});
-
-const SAMPLE_RATE = 20;
-
 const io = require('socket.io-client');
 const gameController = require('gamecontroller.js');
 const pointerLockPlus = require('pointer-lock-plus').default;
 
+let untilDomReady = new Promise((resolve)=>{document.addEventListener('DOMContentLoaded',()=>{resolve()});});
+
 var socket = io();
 
+const SAMPLE_RATE = 20;
 var keys = {};
-window.addEventListener("keydown",
-    function(e){
-        keys[e.key] = true;
-    },
-false);
-
-window.addEventListener('keyup',
-    function(e){
-        keys[e.key] = false;
-    },
-false);
 
 untilDomReady.then(()=>{
-    sync();
-    function sync() {
+    window.addEventListener("keydown", (e) => { keys[e.key] = true; }, false);
+    window.addEventListener("keyup", (e) => { keys[e.key] = false; }, false);
+    window.addEventListener("p", (e) => {
         pointerLockPlus({
             onAttain: ()=>{console.log("pointer atain")},
             onData: ()=>{console.log("pointer data")},
@@ -35,6 +20,10 @@ untilDomReady.then(()=>{
             onRelease: ()=>{console.log("pointer release")},
             onError: ()=>{console.log("pointer error")},
         });
+    }, false);
+
+    sync();
+    function sync() {
 
         let inputs = {};
         inputs.keys = keys;
