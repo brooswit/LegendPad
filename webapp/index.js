@@ -2,7 +2,7 @@ const SAMPLE_RATE = 20;
 
 const io = require('socket.io-client');
 const gameController = require('gamecontroller.js');
-const pointerLockPlus = require('pointer-lock-plus');
+const pointerLockPlus = require('pointer-lock-plus').default;
 
 var socket = io();
 
