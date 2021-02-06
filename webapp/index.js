@@ -2,9 +2,9 @@ var havePointerLock = 'pointerLockElement' in document ||
     'mozPointerLockElement' in document ||
     'webkitPointerLockElement' in document;
 
-document.body.requestPointerLock = element.requestPointerLock ||
-			     element.mozRequestPointerLock ||
-			     element.webkitRequestPointerLock;
+document.body.requestPointerLock = document.body.requestPointerLock ||
+			     document.body.mozRequestPointerLock ||
+			     document.body.webkitRequestPointerLock;
 // Ask the browser to lock the pointer
 // document.body.requestPointerLock();
 
