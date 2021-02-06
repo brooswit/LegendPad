@@ -7,7 +7,7 @@ const pointerLockPlus = require('pointer-lock-plus').default;
 let untilDomReady = new Promise((resolve)=>{document.addEventListener('DOMContentLoaded',()=>{resolve()});});
 let socket = io();
 
-let caputre = false;
+let capture = false;
 let keys = {};
 let mouseButtons = {};
 
@@ -16,14 +16,14 @@ let mouseYBuffer = 0;
 
 untilDomReady.then(()=>{
     var button = document.createElement("button");
-    button.innerHTML = "Caputre Inputs";
+    button.innerHTML = "Capture Inputs";
     var body = document.getElementsByTagName("body")[0];
     body.appendChild(button);
     button.addEventListener ("click", function() {
         pointerLockPlus({
             element: button,
-            onAttain: ()=>{caputre = true},
-            onRelease: ()=>{caputre = false},
+            onAttain: ()=>{capture = true},
+            onRelease: ()=>{capture = false},
             onData: (x, y)=>{
                 mouseXBuffer+=x;
                 mouseYBuffer+=y;
