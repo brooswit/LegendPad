@@ -4,25 +4,31 @@ const pointerLockPlus = require('pointer-lock-plus').default;
 
 let untilDomReady = new Promise((resolve)=>{document.addEventListener('DOMContentLoaded',()=>{resolve()});});
 
-var socket = io();
+let socket = io();
 
 const SAMPLE_RATE = 20;
-var keys = {};
+let keys = {};
 
 untilDomReady.then(()=>{
-    window.addEventListener("keydown", (e) => { keys[e.key] = true; }, false);
-    window.addEventListener("keyup", (e) => { keys[e.key] = false; }, false);
-    window.addEventListener("keydown", (e) => {
-        if (e.key != 'p') return;
-        console.log("tryna pointer atain")
+    var button = document.createElement("button");
+    button.innerHTML = "Caputre Mouse Inputs";
+    var body = document.getElementsByTagName("body")[0];
+    body.appendChild(button);
+    button.addEventListener ("click", function() {
+        // alert("did something");
+        console.log("tryna pointer atain");
         pointerLockPlus({
+            element: button,
             onAttain: ()=>{console.log("pointer atain")},
             onData: ()=>{console.log("pointer data")},
             onClose: ()=>{console.log("pointer close")},
             onRelease: ()=>{console.log("pointer release")},
             onError: ()=>{console.log("pointer error")},
         });
-    }, false);
+    });
+
+    window.addEventListener("keydown", (e) => { keys[e.key] = true; }, false);
+    window.addEventListener("keyup", (e) => { keys[e.key] = false; }, false);
 
     sync();
     function sync() {
