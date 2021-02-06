@@ -12,7 +12,9 @@ var keys = {};
 untilDomReady.then(()=>{
     window.addEventListener("keydown", (e) => { keys[e.key] = true; }, false);
     window.addEventListener("keyup", (e) => { keys[e.key] = false; }, false);
-    window.addEventListener("p", (e) => {
+    window.addEventListener("keydown", (e) => {
+        if (e.key != 'p') return;
+        console.log("tryna pointer atain")
         pointerLockPlus({
             onAttain: ()=>{console.log("pointer atain")},
             onData: ()=>{console.log("pointer data")},
