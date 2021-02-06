@@ -43,10 +43,10 @@ function combineStates() {
         }
         
         if (states[stateKey].mouse.x !== undefined) {
-            combineStates.mouse.x.push(states[stateKey].mouse.x);
+            combinedState.mouse.x.push(states[stateKey].mouse.x);
         }
         if (states[stateKey].mouse.y !== undefined) {
-            combineStates.mouse.y.push(states[stateKey].mouse.y);
+            combinedState.mouse.y.push(states[stateKey].mouse.y);
         }
 
         for(buttonIndex in states[stateKey].mouse.buttons) {
