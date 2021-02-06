@@ -33,8 +33,8 @@ untilDomReady.then(()=>{
             // onError: ()=>{console.log("pointer error")},
         });
     });
-    window.addEventListener("mousedown", (e) => { mouseButton[e.which] = true; }, false);
-    window.addEventListener("mouseup", (e) => { mouseButton[e.which] = false; }, false);
+    window.addEventListener("mousedown", (e) => { mouseButtons[e.which] = true; }, false);
+    window.addEventListener("mouseup", (e) => { mouseButtons[e.which] = false; }, false);
 
     window.addEventListener("keydown", (e) => { keys[e.key] = true; }, false);
     window.addEventListener("keyup", (e) => { keys[e.key] = false; }, false);
