@@ -22,11 +22,11 @@ false);
 sync();
 function sync() {
     pointerLockPlus({
-        onAttain = () => {console.log("pointer atain")},
-        onData = () => {console.log("pointer data")},
-        onClose = () => {console.log("pointer close")},
-        onRelease = () => {console.log("pointer release")},
-        onError = () => {console.log("pointer error")},
+        onAttain: ()=>{console.log("pointer atain")},
+        onData: ()=>{console.log("pointer data")},
+        onClose: ()=>{console.log("pointer close")},
+        onRelease: ()=>{console.log("pointer release")},
+        onError: ()=>{console.log("pointer error")},
     });
 
     let inputs = {};
