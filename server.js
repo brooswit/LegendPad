@@ -23,35 +23,41 @@ function combineStates() {
     };
 
     for(stateKey in states) {
-        for(keyIndex in states[stateKey].keys) {
-            combinedState.keys[keyIndex] = combinedState.keys[keyIndex] || [];
-            combinedState.keys[keyIndex].push(states[stateKey].keys[keyIndex]?1:-1);
-        }
-        
-        for(controllerIndex in states[stateKey].controllers) {
-            combinedState.controllers[controllerIndex] = combinedState.controllers[controllerIndex] || {};
-            combinedState.controllers[controllerIndex].buttons = combinedState.controllers[controllerIndex].buttons || {};
-            combinedState.controllers[controllerIndex].axes = combinedState.controllers[controllerIndex].axes || {};
-            for(buttonIndex in states[stateKey].controllers[controllerIndex].buttons) {
-                combinedState.controllers[controllerIndex].buttons[buttonIndex] = combinedState.controllers[controllerIndex].buttons[buttonIndex] || [];
-                combinedState.controllers[controllerIndex].buttons[buttonIndex].push(states[stateKey].controllers[controllerIndex].buttons[buttonIndex]?1:-1);
-            }
-            for(axeIndex in states[stateKey].controllers[controllerIndex].axes) {
-                combinedState.controllers[controllerIndex].axes[axeIndex] = combinedState.controllers[controllerIndex].axes[axeIndex] || [];
-                combinedState.controllers[controllerIndex].axes[axeIndex].push(states[stateKey].controllers[controllerIndex].axes[axeIndex]);
+        if (states[stateKey].keys) {
+            for(keyIndex in states[stateKey].keys) {
+                combinedState.keys[keyIndex] = combinedState.keys[keyIndex] || [];
+                combinedState.keys[keyIndex].push(states[stateKey].keys[keyIndex]?1:-1);
             }
         }
         
-        if (states[stateKey].mouse.x !== undefined) {
-            combinedState.mouse.x.push(states[stateKey].mouse.x);
+        if (states[stateKey].controllers) {
+            for(controllerIndex in states[stateKey].controllers) {
+                combinedState.controllers[controllerIndex] = combinedState.controllers[controllerIndex] || {};
+                combinedState.controllers[controllerIndex].buttons = combinedState.controllers[controllerIndex].buttons || {};
+                combinedState.controllers[controllerIndex].axes = combinedState.controllers[controllerIndex].axes || {};
+                for(buttonIndex in states[stateKey].controllers[controllerIndex].buttons) {
+                    combinedState.controllers[controllerIndex].buttons[buttonIndex] = combinedState.controllers[controllerIndex].buttons[buttonIndex] || [];
+                    combinedState.controllers[controllerIndex].buttons[buttonIndex].push(states[stateKey].controllers[controllerIndex].buttons[buttonIndex]?1:-1);
+                }
+                for(axeIndex in states[stateKey].controllers[controllerIndex].axes) {
+                    combinedState.controllers[controllerIndex].axes[axeIndex] = combinedState.controllers[controllerIndex].axes[axeIndex] || [];
+                    combinedState.controllers[controllerIndex].axes[axeIndex].push(states[stateKey].controllers[controllerIndex].axes[axeIndex]);
+                }
+            }
         }
-        if (states[stateKey].mouse.y !== undefined) {
-            combinedState.mouse.y.push(states[stateKey].mouse.y);
-        }
+        
+        if (states[stateKey].mouse) {
+            if (states[stateKey].mouse.x !== undefined) {
+                combinedState.mouse.x.push(states[stateKey].mouse.x);
+            }
+            if (states[stateKey].mouse.y !== undefined) {
+                combinedState.mouse.y.push(states[stateKey].mouse.y);
+            }
 
-        for(buttonIndex in states[stateKey].mouse.buttons) {
-            combinedState.mouse.buttons[buttonIndex] = combinedState.mouse.buttons[buttonIndex] || [];
-            combinedState.mouse.buttons[buttonIndex].push(states[stateKey].mouse.buttons[buttonIndex]?1:-1);
+            for(buttonIndex in states[stateKey].mouse.buttons) {
+                combinedState.mouse.buttons[buttonIndex] = combinedState.mouse.buttons[buttonIndex] || [];
+                combinedState.mouse.buttons[buttonIndex].push(states[stateKey].mouse.buttons[buttonIndex]?1:-1);
+            }
         }
     }
 }
