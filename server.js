@@ -16,6 +16,12 @@ function combineStates() {
     combinedState = {};
     combinedState.keys = {};
     combinedState.controllers = {};
+    combinedState.mouse = {
+        x:[],
+        y:[],
+        buttons: {}
+    };
+
     for(stateKey in states) {
         for(keyIndex in states[stateKey].keys) {
             combinedState.keys[keyIndex] = combinedState.keys[keyIndex] || [];
@@ -35,6 +41,18 @@ function combineStates() {
                 combinedState.controllers[controllerIndex].axes[axeIndex].push(states[stateKey].controllers[controllerIndex].axes[axeIndex]);
             }
         }
+        
+        if (states[stateKey].mouse.x !== undefined) {
+            combineStates.mouse.x.push(states[stateKey].mouse.x);
+        }
+        if (states[stateKey].mouse.y !== undefined) {
+            combineStates.mouse.y.push(states[stateKey].mouse.y);
+        }
+
+        for(buttonIndex in states[stateKey].mouse.buttons) {
+            combinedState.mouse.buttons[buttonIndex] = combinedState.mouse.buttons[buttonIndex] || [];
+            combinedState.mouse.buttons[buttonIndex].push(states[stateKey].mouse.buttons[buttonIndex]?1:-1);
+        }
     }
 }
 
@@ -51,6 +69,12 @@ function averageStates() {
     averageState = {};
     averageState.keys = {};
     averageState.controllers = {};
+    averageState.mouse = {
+        x:0,
+        y:0,
+        buttons: {}
+    };
+
     for(keyIndex in combinedState.keys) {
         averageState.keys[keyIndex] = arrayAverage(combinedState.keys[keyIndex])>0;
     }
@@ -65,6 +89,11 @@ function averageStates() {
         for(axeIndex in combinedState.controllers[controllerIndex].axes) {
             averageState.controllers[controllerIndex].axes[axeIndex] = arrayAverage(combinedState.controllers[controllerIndex].axes[axeIndex])
         }
+    }
+    averageState.mouse.x = arrayAverage(combinedState.mouse.x);
+    averageState.mouse.y = arrayAverage(combinedState.mouse.y);
+    for(buttonIndex in combinedState.mouse.buttons) {
+        averageState.mouse.buttons[buttonIndex] = arrayAverage(combinedState.mouse.buttons[buttonIndex])>0;
     }
 }
 

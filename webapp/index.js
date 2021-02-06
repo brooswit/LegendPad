@@ -1,4 +1,4 @@
-const SAMPLE_RATE = 20;
+const SAMPLE_RATE = 5;
 
 const io = require('socket.io-client');
 const gameController = require('gamecontroller.js');
@@ -19,6 +19,7 @@ untilDomReady.then(()=>{
     button.innerHTML = "Capture Inputs";
     var body = document.getElementsByTagName("body")[0];
     body.appendChild(button);
+
     button.addEventListener ("click", function() {
         pointerLockPlus({
             element: button,
@@ -33,6 +34,7 @@ untilDomReady.then(()=>{
             // onError: ()=>{console.log("pointer error")},
         });
     });
+
     window.addEventListener("mousedown", (e) => { mouseButtons[e.which] = true; }, false);
     window.addEventListener("mouseup", (e) => { mouseButtons[e.which] = false; }, false);
 
