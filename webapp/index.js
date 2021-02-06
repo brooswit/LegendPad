@@ -1,23 +1,8 @@
-var havePointerLock = 'pointerLockElement' in document ||
-    'mozPointerLockElement' in document ||
-    'webkitPointerLockElement' in document;
-
-document.body.requestPointerLock = document.body.requestPointerLock ||
-			     document.body.mozRequestPointerLock ||
-			     document.body.webkitRequestPointerLock;
-// Ask the browser to lock the pointer
-// document.body.requestPointerLock();
-
-// Ask the browser to release the pointer
-document.exitPointerLock = document.exitPointerLock ||
-			   document.mozExitPointerLock ||
-			   document.webkitExitPointerLock;
-// document.exitPointerLock();
-
 const SAMPLE_RATE = 20;
 
 const io = require('socket.io-client');
 const gameController = require('gamecontroller.js');
+const pointerLockPlus = require('pointer-lock-plus');
 
 var socket = io();
 
@@ -36,7 +21,14 @@ false);
 
 sync();
 function sync() {
-    document.body.requestPointerLock();
+    pointerLockPlus({
+        onAttain = () => {console.log("pointer atain")},
+        onData = () => {console.log("pointer data")},
+        onClose = () => {console.log("pointer close")},
+        onRelease = () => {console.log("pointer release")},
+        onError = () => {console.log("pointer error")},
+    });
+
     let inputs = {};
     inputs.keys = keys;
     inputs.controllers = {};
