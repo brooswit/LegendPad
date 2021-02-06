@@ -2,44 +2,77 @@ import socketio
 import copy
 import keyboard
 
-inputs = {"keys": {}, "controllers": {}}
+
+import ldclient
+from ldclient.config import Config
+
+
+ldclient.set_config(Config("sdk-02a4ada0-6c78-4d7a-9afe-03b858d5b62e"))
+ld = ldclient.get()
+
 
 sio = socketio.Client()
 
-def detectChange(key, handledKeys):
-    if handledKeys[key]:
+
+def detectChange(key, previousValue, value, handledKeys, unknownKeys, preventedKeys):
+    translations = {
+        "ArrowRight": "right",
+        "ArrowLeft": "left",
+        "ArrowUp": "up",
+        "ArrowDown": "down"
+    }
+
+    if key in translations:
+        key = translations[key]
+
+    if key in handledKeys and handledKeys[key] == True:
         return
-
     handledKeys[key] = True
+    if not ld.variation("allow-input", {"key": "unidentified", "custom":{"keyboard": key}}, False):
+        if key in preventedKeys and preventedKeys[key] == True:
+            return
+        preventedKeys[key] = True
+        print('prevented key: ', key)
+        return
+    try:
+        if(previousValue != value):
+            keyboard.send(key, value, not value)
+    except ValueError:
+        if key in unknownKeys and unknownKeys[key] == True:
+            return
+        unknownKeys[key] = True
+        print('unknown key: ', key)
 
-    value = inputs.keys[key]
-    previousValue = previousInputs.keys[key]
-    if(previousValue != value):
-        if(value == True):
-            keyboard.press(key)
-        else:
-            keyboard.release(key)
+
+@sio.event
+def connect_error():
+    print("The connection failed!")
+
 
 @sio.event
 def connect():
-    print('connection established')
-    print('my sid is', sio.sid)
+    print('connected!')
+    currentInputs = {"inputs": {"keys": {}, "controllers": {}}}
+    unknownKeys = {}
+    preventedKeys = {}
     while True:
-        print('loop')
-        previousInputs = copy.deepcopy(inputs)
-        inputs = sio.call('inputs', {})
         handledKeys = {}
+        previousInputs = copy.deepcopy(currentInputs)
+        currentInputs = sio.call('inputs', {})
+        for key in previousInputs["inputs"]["keys"]:
+            previousValue = key in previousInputs["inputs"]["keys"] and previousInputs["inputs"]["keys"][key]
+            currentValue =  key in currentInputs["inputs"]["keys"] and currentInputs["inputs"]["keys"][key]
+            detectChange(key, previousValue, currentValue, handledKeys, unknownKeys, preventedKeys)
+        for key in currentInputs["inputs"]["keys"]:
+            previousValue = key in previousInputs["inputs"]["keys"] and previousInputs["inputs"]["keys"][key]
+            currentValue =  key in currentInputs["inputs"]["keys"] and currentInputs["inputs"]["keys"][key]
+            detectChange(key, previousValue, currentValue, handledKeys, unknownKeys, preventedKeys)
 
-        for key in range(len(previousInputs.keys)):
-            detectChange(key, handledKeys)
-        for key in range(len(inputs.keys)):
-            detectChange(key, handledKeys)
 
 @sio.event
 def disconnect():
     print('disconnected from server')
 
-sio.connect('ws://legend-pad.herokuapp.com')
 
+sio.connect('https://legend-pad.herokuapp.com')
 sio.wait()
-           
