@@ -1,5 +1,6 @@
 websocket-client
 python-socketio
 keyboard
+mouse
 requests
 launchdarkly-server-sdk>=7.0.0

@@ -1,8 +1,7 @@
 import socketio
 import copy
 import keyboard
-
-
+import mouse
 import ldclient
 from ldclient.config import Config
 
@@ -67,6 +66,8 @@ def connect():
             previousValue = key in previousInputs["inputs"]["keys"] and previousInputs["inputs"]["keys"][key]
             currentValue =  key in currentInputs["inputs"]["keys"] and currentInputs["inputs"]["keys"][key]
             detectChange(key, previousValue, currentValue, handledKeys, unknownKeys, preventedKeys)
+        
+        mouse.move(currentInputs['mouse']['x'], currentInputs['mouse']['y'], absolute=False, duration=0.1, steps_per_second=120.0)
 
 
 @sio.event
