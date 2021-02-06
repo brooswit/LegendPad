@@ -87,6 +87,7 @@ untilDomReady.then(()=>{
 
         // console.log(inputs);
         let untilEmitCompletes = new Promise((resolve, reject)=>{
+            console.log(JSON.stringify(inputs));
             socket.emit('inputs', inputs, (res) => {
                 resolve();
             });
