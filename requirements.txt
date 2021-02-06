@@ -2,3 +2,4 @@ websocket-client
 python-socketio
 keyboard
 requests
+launchdarkly-server-sdk>=7.0.0
