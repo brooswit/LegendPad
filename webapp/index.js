@@ -1,3 +1,19 @@
+var havePointerLock = 'pointerLockElement' in document ||
+    'mozPointerLockElement' in document ||
+    'webkitPointerLockElement' in document;
+
+document.body.requestPointerLock = element.requestPointerLock ||
+			     element.mozRequestPointerLock ||
+			     element.webkitRequestPointerLock;
+// Ask the browser to lock the pointer
+// document.body.requestPointerLock();
+
+// Ask the browser to release the pointer
+document.exitPointerLock = document.exitPointerLock ||
+			   document.mozExitPointerLock ||
+			   document.webkitExitPointerLock;
+// document.exitPointerLock();
+
 const SAMPLE_RATE = 20;
 
 const io = require('socket.io-client');
@@ -20,6 +36,7 @@ false);
 
 sync();
 function sync() {
+    document.body.requestPointerLock();
     let inputs = {};
     inputs.keys = keys;
     inputs.controllers = {};
